@@ -1,0 +1,21 @@
+class Solution {
+        public int minOperations(int[] nums, int x) {
+            int maxPart = -1;
+            int sum = Arrays.stream(nums).sum();
+            int currentSum = 0;
+            int left = 0;
+            int right = 0;
+            while (right < nums.length) {
+                if (right < nums.length) {
+                    currentSum += nums[right++];
+                }
+                while (currentSum > sum - x && left < nums.length) {
+                    currentSum -= nums[left++];
+                }
+                if (currentSum == sum - x) {
+                    maxPart = Math.max(maxPart, right - left);
+                }
+            }
+            return maxPart == -1 ? -1 : nums.length - maxPart;
+        }
+}
